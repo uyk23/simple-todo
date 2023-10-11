@@ -1,0 +1,40 @@
+html,
+body {
+    height: 100%;
+    font-size: 16px;
+}
+
+* {
+    text-align: center;
+    font-family: 'Epilogue', sans-serif;
+}
+
+body {
+    background-color: #83a5b0;
+}
+
+header {
+    font-size: 1.5em;
+}
+
+.tasks {
+    padding: 2% 5%;
+
+}
+
+.border {
+    border-radius: 15px;
+    border: solid white;
+    margin: 1%;
+}
+
+.white-bg {
+    background-color: #FFFFFF95;
+}
+
+.task-item {
+    text-align: left;
+    border-radius: 15px;
+    margin: 0.5%;
+    padding: 2%;
+}
