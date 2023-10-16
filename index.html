@@ -5,25 +5,21 @@
     <title>To Do</title>
     <link href="./resources/styles/style.css" type="text/css" rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@200&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400&display=swap"
         rel="stylesheet">
 </head>
 
-<body class="border">
-    <header class="border white-bg">
+<body>
+    <header>
         <h1>A Simple To Do</h1>
     </header>
     <section>
-        <article>
-            <ul id="task-list">
-            </ul>
+        <article id="task-list">
+
         </article>
-        <article>
-            <form>
-                <input type="text" id="task-text" class="tasks border">
-            </form>
-            <button type="button" id="task-button"
-                class="tasks border">Add</button>
+        <article id="task-input">
+            <input type="text" id="task-text" class="tasks">
+            <button type="button" id="task-button" class="tasks">Add</button>
         </article>
     </section>
     <script src="./resources/scripts/task.js"></script>

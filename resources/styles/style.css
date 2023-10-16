@@ -1,40 +1,69 @@
-html,
-body {
-    height: 100%;
-    font-size: 16px;
-}
-
 * {
     text-align: center;
     font-family: 'Epilogue', sans-serif;
+    border-radius: 15px;
 }
 
-body {
-    background-color: #83a5b0;
+html {
+    height: 100%;
+    background-image: url(../images/img1.jpg);
+    background-color: #352700;
+    background-size: cover;
+    font-size: 18px;
+}
+
+body,
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+section {
+    row-gap: 2em;
 }
 
 header {
     font-size: 1.5em;
+    color: #FFFFFF;
 }
 
-.tasks {
-    padding: 2% 5%;
-
-}
-
-.border {
-    border-radius: 15px;
-    border: solid white;
-    margin: 1%;
+div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 2%;
 }
 
 .white-bg {
-    background-color: #FFFFFF95;
+    background-color: #FFFFFF;
 }
 
-.task-item {
+.item {
     text-align: left;
-    border-radius: 15px;
+    width: 100%;
+}
+
+.tasks {
     margin: 0.5%;
     padding: 2%;
+}
+
+.delete {
+    background-color: #e6aaaa;
+}
+
+.delete:hover span {
+    display: none;
+}
+
+.delete:hover:before {
+    content: "Delete";
+}
+
+#task-button {
+    background-color: #aae6ca;
+}
+
+button {
+    border: solid 1px black;
 }

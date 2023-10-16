@@ -1,26 +1,43 @@
 const taskButton = document.getElementById("task-button");
 taskButton.addEventListener("click", addTaskToPage);
 
+const taskText = document.getElementById("task-text");
+taskText.addEventListener("keypress", (ev) => {
+    if (ev.key === 'Enter') {
+        addTaskToPage();
+    }
+});
+
+/*
+var deleteButton = document.querySelector(".delete");
+deleteButton.addEventListener("mouseover", function () {
+    this.innerHTML = "Delete";
+});
+deleteButton.addEventListener("mouseout", function () {
+    this.innerHTML = "D";
+})*/
+
 const taskList = document.getElementById("task-list");
 
 function addTaskToPage() {
     let task = document.querySelector("#task-text").value;
     if (task) {
         let taskDiv = document.createElement("div");
-        taskDiv.style.display = "flex";
+        taskDiv.draggable = "true";
 
-        let taskItem = document.createElement("li");
-        taskItem.className = "task-item white-bg";
+        let taskItem = document.createElement("p");
+        taskItem.className = "tasks item white-bg";
         taskItem.innerHTML = task;
 
         let deleteButton = document.createElement("button");
         deleteButton.addEventListener("click", deleteTask);
-        deleteButton.innerHTML = "Delete";
-        deleteButton.className = "border";
+        deleteButton.className = "tasks delete";
+        deleteButton.innerHTML = "<span>D</span>";
 
         taskDiv.appendChild(taskItem);
         taskDiv.appendChild(deleteButton);
         taskList.appendChild(taskDiv);
+        document.querySelector("#task-text").value = "";
     }
 }
 
