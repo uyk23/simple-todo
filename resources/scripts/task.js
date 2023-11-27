@@ -8,14 +8,6 @@ taskText.addEventListener("keypress", (ev) => {
     }
 });
 
-/*
-var deleteButton = document.querySelector(".delete");
-deleteButton.addEventListener("mouseover", function () {
-    this.innerHTML = "Delete";
-});
-deleteButton.addEventListener("mouseout", function () {
-    this.innerHTML = "D";
-})*/
 
 const taskList = document.getElementById("task-list");
 
