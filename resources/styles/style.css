@@ -38,16 +38,22 @@ div {
     background-color: #FFFFFF;
 }
 
-.item {
-    border: 1px solid #555555;
-    text-align: left;
-    width: 100%;
-}
-
 .tasks {
     margin: 0.5%;
     padding: 2%;
     font-size: .8em;
+    border: 1px solid #555555;
+}
+
+.item {
+    text-align: left;
+    width: 100%;
+    flex-grow: 2;
+}
+
+.date {
+    flex-grow: 1;
+    min-width: 10em;
 }
 
 .delete {
