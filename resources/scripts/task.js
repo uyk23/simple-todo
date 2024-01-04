@@ -8,6 +8,18 @@ taskText.addEventListener("keypress", (ev) => {
     }
 });
 
+const dueDate = document.getElementById("task-date");
+dueDate.addEventListener("change", (ev) => {
+    let today = new Date();
+    let [year, month, day] = ev.target.value.split('-')
+    let dueValue = new Date(year, month - 1, day);
+    today.setHours(0, 0, 0, 0);
+    if (dueValue.getTime() < today.getTime()) {
+        window.alert("Date Invalid: due date cannot be set in the past");
+        dueDate.value = "";
+    }
+});
+
 const taskList = document.getElementById("task-list");
 
 function addTaskToPage() {
@@ -16,7 +28,6 @@ function addTaskToPage() {
         let taskDiv = document.createElement("div");
         taskDiv.draggable = "true";
 
-        const dueDate = document.getElementById("task-date");
         let taskDate;
         if (dueDate.value) {
             taskDate = document.createElement("input");

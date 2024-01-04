@@ -42,7 +42,7 @@ div {
     margin: 0.5%;
     padding: 2%;
     font-size: .8em;
-    border: 1px solid #555555;
+    border: 1.5px solid #555555;
 }
 
 .item {
@@ -72,6 +72,12 @@ div {
     content: "Delete";
 }
 
+.delete,
+#task-button {
+    border-style: outset;
+    transition-duration: 1s;
+}
+
 #task-button {
     background-color: #aae6ca;
 }
@@ -83,13 +89,6 @@ div {
 #task-button:active,
 button:active {
     border-style: inset;
-}
-
-button,
-#task-button {
-    border: solid 2px black;
-    border-style: outset;
-    transition-duration: 1s;
 }
 
 #task-input {
