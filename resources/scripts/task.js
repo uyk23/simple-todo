@@ -9,16 +9,7 @@ taskText.addEventListener("keypress", (ev) => {
 });
 
 const dueDate = document.getElementById("task-date");
-dueDate.addEventListener("change", (ev) => {
-    let today = new Date();
-    let [year, month, day] = ev.target.value.split('-')
-    let dueValue = new Date(year, month - 1, day);
-    today.setHours(0, 0, 0, 0);
-    if (dueValue.getTime() < today.getTime()) {
-        window.alert("Date Invalid: due date cannot be set in the past");
-        dueDate.value = "";
-    }
-});
+dueDate.addEventListener("change", changeDate);
 
 const taskList = document.getElementById("task-list");
 
@@ -34,6 +25,7 @@ function addTaskToPage() {
             taskDate.type = "date";
             taskDate.className = "tasks date";
             taskDate.value = dueDate.value;
+            taskDate.addEventListener("change", changeDate);
         }
 
         let taskItem = document.createElement("p");
@@ -58,5 +50,16 @@ function addTaskToPage() {
 function deleteTask() {
     if (window.confirm("Are you sure you want to delete this task?")) {
         this.parentElement.remove();
+    }
+}
+
+function changeDate(ev) {
+    let today = new Date();
+    let [year, month, day] = ev.target.value.split('-')
+    let dueValue = new Date(year, month - 1, day);
+    today.setHours(0, 0, 0, 0);
+    if (dueValue.getTime() < today.getTime()) {
+        window.alert("Date Invalid: due date cannot be set in the past");
+        dueDate.value = "";
     }
 }
