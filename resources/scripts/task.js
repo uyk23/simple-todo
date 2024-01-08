@@ -13,11 +13,13 @@ dueDate.addEventListener("change", changeDate);
 
 const taskList = document.getElementById("task-list");
 
+let dragElem;
+
 function addTaskToPage() {
     let task = document.querySelector("#task-text");
     if (task.value) {
         let taskDiv = document.createElement("div");
-        taskDiv.draggable = "true";
+        addDragEvents(taskDiv);
 
         let taskDate;
         if (dueDate.value) {
@@ -62,4 +64,26 @@ function changeDate(ev) {
         window.alert("Date Invalid: due date cannot be set in the past");
         dueDate.value = "";
     }
+}
+
+function addDragEvents(taskDiv) {
+    taskDiv.classList.add("dropzone");
+    taskDiv.draggable = "true";
+    taskDiv.addEventListener("dragstart", (ev) => {
+        dragElem = ev.target;
+    });
+    taskDiv.addEventListener("dragover", (ev) => {
+        ev.preventDefault();
+    }, false);
+    taskDiv.addEventListener("drop", (ev) => {
+        ev.preventDefault();
+        if (ev.target.parentElement.classList.contains("dropzone")) {
+            let dragCopy = dragElem.cloneNode(true);
+            let dropCopy = ev.target.parentElement.cloneNode(true);
+            addDragEvents(dragCopy);
+            addDragEvents(dropCopy);
+            ev.target.parentElement.replaceWith(dragCopy);
+            dragElem.replaceWith(dropCopy);
+        }
+    });
 }
