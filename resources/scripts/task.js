@@ -71,14 +71,21 @@ function addDragEvents(taskDiv) {
     taskDiv.draggable = "true";
     taskDiv.addEventListener("dragstart", (ev) => {
         dragElem = ev.target;
+        ev.target.classList.toggle("dragging");
+        ev.target.classList.toggle("dropzone");
     });
     taskDiv.addEventListener("dragover", (ev) => {
         ev.preventDefault();
-    }, false);
+    });
+    taskDiv.addEventListener("dragend", (ev) => {
+        ev.target.classList.toggle("dragging");
+        ev.target.classList.toggle("dropzone");
+    });
     taskDiv.addEventListener("drop", (ev) => {
         ev.preventDefault();
         if (ev.target.parentElement.classList.contains("dropzone")) {
             let dragCopy = dragElem.cloneNode(true);
+            dragCopy.classList.toggle("dragging");
             let dropCopy = ev.target.parentElement.cloneNode(true);
             addDragEvents(dragCopy);
             addDragEvents(dropCopy);

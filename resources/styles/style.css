@@ -56,6 +56,10 @@ div {
     min-width: 10em;
 }
 
+.dragging {
+    opacity: 0.5;
+}
+
 .delete {
     background-color: #e6aaaa;
 }
