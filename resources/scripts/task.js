@@ -19,7 +19,6 @@ function addTaskToPage() {
     let task = document.querySelector("#task-text");
     if (task.value) {
         let taskDiv = document.createElement("div");
-        addDragEvents(taskDiv);
 
         let taskDate;
         if (dueDate.value) {
@@ -35,23 +34,17 @@ function addTaskToPage() {
         taskItem.innerHTML = task.value;
 
         let deleteButton = document.createElement("button");
-        deleteButton.addEventListener("click", deleteTask);
         deleteButton.className = "tasks delete";
         deleteButton.innerHTML = "<span>D</span>";
 
         taskDiv.appendChild(taskItem);
         if (taskDate) taskDiv.appendChild(taskDate);
         taskDiv.appendChild(deleteButton);
+        addEvents(taskDiv);
         taskList.appendChild(taskDiv);
 
         task.value = "";
         dueDate.value = null;
-    }
-}
-
-function deleteTask() {
-    if (window.confirm("Are you sure you want to delete this task?")) {
-        this.parentElement.remove();
     }
 }
 
@@ -66,7 +59,7 @@ function changeDate(ev) {
     }
 }
 
-function addDragEvents(taskDiv) {
+function addEvents(taskDiv) {
     taskDiv.classList.add("dropzone");
     taskDiv.draggable = "true";
     taskDiv.addEventListener("dragstart", (ev) => {
@@ -87,10 +80,19 @@ function addDragEvents(taskDiv) {
             let dragCopy = dragElem.cloneNode(true);
             dragCopy.classList.toggle("dragging");
             let dropCopy = ev.target.parentElement.cloneNode(true);
-            addDragEvents(dragCopy);
-            addDragEvents(dropCopy);
-            ev.target.parentElement.replaceWith(dragCopy);
-            dragElem.replaceWith(dropCopy);
+            ev.target.parentElement.replaceWith(addEvents(dragCopy));
+            dragElem.replaceWith(addEvents(dropCopy));
         }
     });
+
+    console.log(taskDiv);
+    let deleteButton = taskDiv.querySelector(".delete");
+    deleteButton.addEventListener("click", deleteTask);
+    return taskDiv;
+}
+
+function deleteTask(ev) {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+        ev.target.parentElement.remove();
+    }
 }
