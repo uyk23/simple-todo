@@ -18,11 +18,42 @@
         </article>
         <article id="task-input">
             <input type="date" id="task-date" class="tasks" value="">
-            <input type="text" id="task-text" class="tasks">
+            <div id="task-textarea" class="tasks">
+                <textarea id="task-text" autofocus></textarea>
+            </div>
             <button type="button" id="task-button" class="tasks">Add</button>
+            <div id="info-button" class="tasks">?
+                <span id="info-popup">Hello! To create a task, add your text in
+                    the middle text box below.<br>Press ctrl + enter to create a
+                    new
+                    line while writing your task,
+                    and press enter or click the green add button to create a
+                    new
+                    task. *Due dates are optional!<br>Hope this helps
+                    :&#41;</span>
+            </div>
         </article>
+        <footer id="due-color" class="show">
+            <button id="footer-show">^</button>
+            <div id="colors">
+                <div>
+                    <p>&lt; 1 Day</p>
+                    <input type="color" id="due-date-1" value="#FFB8B8">
+                </div>
+                <div>
+                    <p>&lt; 3 Days</p>
+                    <input type="color" id="due-date-2" value="#FFE2C7">
+                </div>
+                <div>
+                    <p>&lt; 1 Week</p>
+                    <input type="color" id="due-date-3" value="#FEFFD6">
+                </div>
+            </div>
+        </footer>
     </section>
+    <script src="./resources/scripts/due.js"></script>
     <script src="./resources/scripts/task.js"></script>
+    <script src="./resources/scripts/info.js"></script>
 </body>
 
 </html>

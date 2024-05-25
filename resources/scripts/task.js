@@ -1,18 +1,35 @@
 const taskButton = document.getElementById("task-button");
 taskButton.addEventListener("click", addTaskToPage);
 
+const dueDate = document.getElementById("task-date");
+let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+dueDate.min = new Date(today - tzoffset).toISOString().split("T")[0];
+
+let shiftHeld = false;
+
 const taskText = document.getElementById("task-text");
 taskText.addEventListener("keypress", (ev) => {
-    if (ev.key === 'Enter') {
+    if (!shiftHeld && ev.key === 'Enter') {
+        ev.preventDefault();
         addTaskToPage();
     }
 });
 
-const dueDate = document.getElementById("task-date");
-dueDate.addEventListener("change", changeDate);
+taskText.addEventListener("keydown", (ev) => {
+    if (ev.key === 'Shift') shiftHeld = true;
+});
+
+taskText.addEventListener("keyup", (ev) => {
+    if (ev.key === 'Shift') shiftHeld = false;
+});
+
+const footerButton = document.getElementById("footer-show");
+footerButton.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    ev.target.parentElement.classList.toggle("show");
+})
 
 const taskList = document.getElementById("task-list");
-
 let dragElem;
 
 function addTaskToPage() {
@@ -20,22 +37,21 @@ function addTaskToPage() {
     if (task.value) {
         let taskDiv = document.createElement("div");
 
+        let taskItem = document.createElement("p");
+        taskItem.innerHTML = task.value;
+        taskItem.className = "tasks item white-bg";
+
         let taskDate;
         if (dueDate.value) {
-            taskDate = document.createElement("input");
-            taskDate.type = "date";
-            taskDate.className = "tasks date";
-            taskDate.value = dueDate.value;
-            taskDate.addEventListener("change", changeDate);
+            taskDate = document.createElement("p");
+            taskDate.innerHTML = dueDate.value;
+            taskDate.className = "tasks date white-bg";
+            colorDueTask(taskDate);
         }
 
-        let taskItem = document.createElement("p");
-        taskItem.className = "tasks item white-bg";
-        taskItem.innerHTML = task.value;
-
         let deleteButton = document.createElement("button");
-        deleteButton.className = "tasks delete";
         deleteButton.innerHTML = "<span>D</span>";
+        deleteButton.className = "tasks delete";
 
         taskDiv.appendChild(taskItem);
         if (taskDate) taskDiv.appendChild(taskDate);
@@ -43,19 +59,8 @@ function addTaskToPage() {
         addEvents(taskDiv);
         taskList.appendChild(taskDiv);
 
-        task.value = "";
-        dueDate.value = null;
-    }
-}
-
-function changeDate(ev) {
-    let today = new Date();
-    let [year, month, day] = ev.target.value.split('-')
-    let dueValue = new Date(year, month - 1, day);
-    today.setHours(0, 0, 0, 0);
-    if (dueValue.getTime() < today.getTime()) {
-        window.alert("Date Invalid: due date cannot be set in the past");
         dueDate.value = "";
+        task.value = "";
     }
 }
 
@@ -75,7 +80,6 @@ function addEvents(taskDiv) {
         ev.target.classList.toggle("dropzone");
     });
     taskDiv.addEventListener("drop", (ev) => {
-        ev.preventDefault();
         if (ev.target.parentElement.classList.contains("dropzone")) {
             let dragCopy = dragElem.cloneNode(true);
             dragCopy.classList.toggle("dragging");
@@ -85,7 +89,6 @@ function addEvents(taskDiv) {
         }
     });
 
-    console.log(taskDiv);
     let deleteButton = taskDiv.querySelector(".delete");
     deleteButton.addEventListener("click", deleteTask);
     return taskDiv;
